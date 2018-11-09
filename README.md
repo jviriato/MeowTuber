@@ -1,3 +1,4 @@
+![Image of MeowTube](https://raw.githubusercontent.com/jviriato/MeowTuber/master/static/img/meowtuber.png)
 # MeowTuber
 Troca badwords (nome de youtubers) por nome de gatinhos
 
