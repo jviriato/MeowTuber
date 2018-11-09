@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" type="image/png" href="static/img/favicon.ico"/>
     <title>MeowTuber</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="static/css/main.css" />
@@ -18,15 +19,14 @@
         <div class="card">
             <p>Digite uma frase que contenha o nome do seu youtuber favorito!</p>
             {% if bad_words %}
-                <p>Bad words: {{ bad_words }}</p>
+                <p><strong>Bad words:</strong> {{ bad_words }}</p>
             {% else %}
                 <p>Nenhuma badword adicionada.</p>
             {% endif %}
-            <form action="/action_page.php">
-                <textarea type="text" id="caixa-texto"></textarea>
+            <form action="{{ url_for('submit') }}" method="post">
+                <textarea type="text" id="textbox" name="text"></textarea>
                 <input type="submit" value="Enviar">
             </form>
-
         </div>
     </div>
 </body>
