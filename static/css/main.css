@@ -1,4 +1,5 @@
 * { margin: 0; padding: 0 }
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
 .hero {
     background-image: linear-gradient(-20deg, #f794a4 0%, #fdd6bd 100%);
     height: 45vh;
@@ -8,6 +9,7 @@
     justify-content: center;
 }
 .hero > h1, img {
+    font-family: 'Montserrat', sans-serif;
     color: white;
     font-size: 4em;
 }
