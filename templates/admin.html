@@ -81,15 +81,15 @@
 	<div id="addEmployeeModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form>
+				<form action="{{ url_for('submit_badword') }}" method="post">
 					<div class="modal-header">						
 						<h4 class="modal-title">Add badword</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">					
-						<div class="form-group">
+					<div class="form-group">
 							<label>Badword</label>
-							<input type="text" class="form-control" required>
+								<input type="text" class="form-control" name="text" required>
 						</div>
 					</div>
 					<div class="modal-footer">

@@ -1,22 +1,35 @@
-from flask import Flask, url_for, render_template, request, redirect, url_for
-
+from flask import Flask, url_for, render_template, request, redirect, url_for, jsonify
+import json
+from pprint import pprint
 bad_words = []
 bd_count = 0
+
 class Badword:
     def __init__(self, nome, id):
         self.id = id
         self.nome = nome
 
+    def to_dict(self):
+        return self.__dict__
+
 def load_badwords():
-    global bd_count
-    with open("badwords.txt", "r") as bd:
-        for line in bd:
-            line.replace('\n', '')
-            print(line)
-            bd_count += 1
-            b = Badword(line, bd_count)
-            bad_words.append(b)
-            print(b)
+    with open('badwords.json') as f:
+        data = json.load(f)
+    for d in data['badwords']:
+        b = Badword(d['badword'], d['id'])
+        bad_words.append(b)
+    # print(json.dumps(bad_words[0].__dict__))
+
+def delete_badword(badword):
+    if badword.id in bad_words:
+        bad_words.remove(badword)
+    
+
+def add_badword(name, id):
+    b = Badword(name, id)
+
+def save_badwords():
+    pass
 
 load_badwords()
 
@@ -25,24 +38,53 @@ app = Flask(__name__)
 
 @app.route('/', methods=['POST', 'GET'])
 def index(bad_words = None):
-    if request.method == 'POST': 
-        return redirect(url_for('admin'))
-    else:
-        return render_template('index.html', bad_words=bad_words)
+    return render_template('index.html')
 
-@app.route('/submit', methods=['POST', 'GET'])
-def submit():
-    text = request.form['text']
-    return 'You entered: {}'.format(text)
+@app.route('/submit_badword', methods=['POST', 'GET'])
+def submit_badword():
+    bid = int(bad_words[-1].id) + 1
+    bid = str(bid).encode("utf-8").decode("utf-8") 
+    badword = request.form['text']
+    b = Badword(badword, bid)
+    bad_words.append(b)
+    d = []
+    for b in bad_words:
+        d.append(b.__dict__)
+    return jsonify({'badwords': d})
 
 @app.route('/admin')
 def admin(bad_words = bad_words):
     print(bad_words)
     return render_template('admin.html', bad_words=bad_words)
 
-@app.route('/text')
-def text():
-    return 'text'
+@app.route('/admin', methods = ["POST"])
+def addOne(badword):
+    bid = int(bad_words[-1].id) + 1
+    bid = str(bid).encode("utf-8").decode("utf-8") 
+    badword = request.form['text']
+    b = Badword(badword, bid)
+    bad_words.append(b)
+    d = []
+    for b in bad_words:
+        d.append(b.__dict__)
+    return jsonify({'badwords': d})
+
+
+
+@app.route('/badwords', methods = ["GET"])
+def returnAll():
+    d = []
+    for b in bad_words:
+        d.append(b.__dict__)
+    return jsonify({'badwords': d})
+
+@app.route('/badwords/<string:id>', methods=['GET'])
+def returnOne(id):
+    id = int(id)
+    return jsonify({'badword' : bad_words[id].__dict__})
+        
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)    
