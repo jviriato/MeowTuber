@@ -1,0 +1,3 @@
+/submit method=POST contents="text=eu gosto da kefera"
+/submit method=POST contents="text=meu amigo ama o whindersson"
+/submit method=POST contents="text=equ queria um zangado de estimação"

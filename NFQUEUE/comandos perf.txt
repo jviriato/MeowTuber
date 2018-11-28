@@ -1,0 +1,21 @@
+CERTO:
+######################################################################################################
+
+httperf --hog --server=10.0.2.17 --num-conns=500 --port=5000 --add-header="Content-Type: application/x-www-form-urlencoded\n" --wsesslog=100,0,session.txt --rate 1000 --timeout 5 --print-reply=body --session-cookie
+
+######################################################################################################
+
+
+
+
+httperf --server=10.0.2.16 --port=80 --add-header="Content-Type: application/x-www-form-urlencoded\n" --wsesslog=1000,100,httperf_content
+
+httperf --hog --server=10.0.2.16 --num-conns=500 --port=80 --add-header="Content-Type: application/x-www-form-urlencoded\n" --wsesslog=100,0,session.txt --rate 1000 --timeout 5 --print-reply=header --session-cookie -method POST
+
+httperf --server=10.0.2.16 --port=80 --add-header="Content-Type: application/x-www-form-urlencoded\n" --method POST --wsesslog=1000,100,session
+
+
+
+httperf --hog --uri=/submit --server 10.0.2.17 --num-conns=500 --port=5000 --add-header="Accept: */*\nContent-Type: application/x-www-form-urlencoded\n" --wsesslog=1,0,session.txt --rate 1000 --timeout 5 --print-reply=body --session-cookie
+
+httperf --uri=/submit --server 10.0.2.17 --port 5000 --wsesslog=1,0,session.txt
