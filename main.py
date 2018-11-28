@@ -1,13 +1,14 @@
 from flask import Flask, url_for, render_template, request, redirect, url_for, jsonify
 import json
 from pprint import pprint
+import requests
 bad_words = []
 bd_count = 0
 
 class Badword:
     def __init__(self, nome, id):
         self.id = id
-        self.nome = nome
+        self.badword = nome
 
     def to_dict(self):
         return self.__dict__
@@ -20,16 +21,11 @@ def load_badwords():
         bad_words.append(b)
     # print(json.dumps(bad_words[0].__dict__))
 
-def delete_badword(badword):
-    if badword.id in bad_words:
-        bad_words.remove(badword)
-    
-
-def add_badword(name, id):
-    b = Badword(name, id)
-
-def save_badwords():
-    pass
+def save_file(d):
+    with open('badwords.json', 'w') as outfile:
+        outfile.write('{\n    "badwords":')
+        json.dump(d, outfile, indent=4)
+        outfile.write('\n}')
 
 load_badwords()
 
@@ -67,17 +63,9 @@ def addOne():
     d = []
     for b in bad_words:
         d.append(b.__dict__)
+    save_file(d)
     return jsonify({'badwords': d})
-#
-# @app.route('/admin', methods = ["DELETE"])
-# def deleteOne():
-#     badword = request.form['entry_id']
-#     # if badword.id in bad_words:
-#     #     bad_words.remove(badword)
-#     d = []
-#     for b in bad_words:
-#         d.append(b.__dict__)
-#     return jsonify({'badwords': d})
+
 
 @app.route('/delete/<int:id>', methods=['POST'])
 def remove(id):
@@ -94,6 +82,7 @@ def remove(id):
     d = []
     for b in bad_words:
         d.append(b.__dict__)
+    save_file(d)
     return jsonify({'badwords': d})
 
 

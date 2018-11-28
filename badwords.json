@@ -1,25 +1,24 @@
 {
-  "badwords":[
+    "badwords":[
     {
-    "id":"1",
-    "badword":"whindersson"
-    },
+        "badword": "pewdiepie", 
+        "id": "2"
+    }, 
     {
-    "id":"2",
-    "badword":"pewdiepie"
-    },
+        "badword": "zoio", 
+        "id": "3"
+    }, 
     {
-    "id":"3",
-    "badword":"zoio"
-    },
+        "badword": "zangado", 
+        "id": "4"
+    }, 
     {
-    "id":"4",
-    "badword":"zangado"
-    },
+        "badword": "kefera", 
+        "id": "5"
+    }, 
     {
-    "id":"5",
-    "badword":"kefera"
+        "badword": "whindersson", 
+        "id": "6"
     }
-  ]
+]
 }
-
