@@ -58,12 +58,39 @@ def admin(bad_words = bad_words):
     return render_template('admin.html', bad_words=bad_words)
 
 @app.route('/admin', methods = ["POST"])
-def addOne(badword):
+def addOne():
     bid = int(bad_words[-1].id) + 1
     bid = str(bid).encode("utf-8").decode("utf-8") 
     badword = request.form['text']
     b = Badword(badword, bid)
     bad_words.append(b)
+    d = []
+    for b in bad_words:
+        d.append(b.__dict__)
+    return jsonify({'badwords': d})
+#
+# @app.route('/admin', methods = ["DELETE"])
+# def deleteOne():
+#     badword = request.form['entry_id']
+#     # if badword.id in bad_words:
+#     #     bad_words.remove(badword)
+#     d = []
+#     for b in bad_words:
+#         d.append(b.__dict__)
+#     return jsonify({'badwords': d})
+
+@app.route('/delete/<int:id>', methods=['POST'])
+def remove(id):
+    id = int(id)
+    for i in bad_words:
+        # print(i.id)
+        # print(type(int(i.id)))
+        # print(id)
+        # print('ayee')
+        if int(i.id) == id:
+            # print('achou!')
+            # print(i.nome)
+            bad_words.remove(i)
     d = []
     for b in bad_words:
         d.append(b.__dict__)
@@ -83,8 +110,5 @@ def returnOne(id):
     id = int(id)
     return jsonify({'badword' : bad_words[id].__dict__})
         
-
-
-
 if __name__ == '__main__':
     app.run(debug=True)    

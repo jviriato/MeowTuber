@@ -57,8 +57,11 @@
 						<td></td>
                         <td></td>
                         <td>
-                            <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                        </td>
+							<form action="{{ url_for('remove', id = badword.id) }}" method="post">
+								<input type="hidden" name="entry_id" value="{{ badword.id }}">
+								<input type="submit" class="btn btn-danger" value="Delete">	
+							</form>
+						</td>
 					</tr>
 					{% endfor %}
                 </tbody>
@@ -81,7 +84,7 @@
 	<div id="addEmployeeModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form action="{{ url_for('submit_badword') }}" method="post">
+				<form action="{{ url_for('admin') }}" method="post">
 					<div class="modal-header">						
 						<h4 class="modal-title">Add badword</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -100,11 +103,11 @@
 			</div>
 		</div>
 	</div>
-	<!-- Delete Modal HTML -->
+	<!-- Delete Modal HTML
 	<div id="deleteEmployeeModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form>
+				<form action="" method="post">
 					<div class="modal-header">						
 						<h4 class="modal-title">Deletar Badword</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -120,6 +123,6 @@
 				</form>
 			</div>
 		</div>
-	</div>
+	</div> -->
 </body>
 </html>                                		                            
