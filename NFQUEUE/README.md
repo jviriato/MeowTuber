@@ -1,5 +1,6 @@
 
 OBS: SE VCS FIZERAM MERDA NO PASSO QUE FICA SEM INTERNET, SÓ REINICIA O PC QUE VOLTA
+
 Então, tem q instalar um monte de merda, scapy, python 3.8(acho que o 3.7 serve tbm), http perf, flask e
 NFQUEUE. Cata ai como instalar, a maioria resolve com apt-get, se der alguns erros cata no google o erro que deve ter algum outro apt-get pra instalar o negócio. 
 
